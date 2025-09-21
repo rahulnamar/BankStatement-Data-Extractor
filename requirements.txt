@@ -2,6 +2,7 @@ streamlit-pdf-viewer
 streamlit-chat
 streamlit-javascript
 pypdf
+frontend
 streamlit==1.29.0
 PyPDF2
 groq
