@@ -5,7 +5,7 @@ import json
 import re
 from groq import Groq
 from streamlit_pdf_viewer import pdf_viewer
-
+import os
 # --------- PAGE CONFIGURATION ----------
 st.set_page_config(page_title="Bank-Statement-extractor", page_icon="📖", layout="wide")
 
@@ -116,7 +116,10 @@ def extract_bank_data_with_validation(structured_text, debug_mode=False):
         prompt = create_enhanced_prompt(structured_text)
         
         # Initialize Groq client
-        client = Groq(api_key="")
+        api_key = os.getenv("GROQ_API_KEY")
+        if api_key is None:
+            raise ValueError("API key is missing. Please set the 'GROQ_API_KEY' environment variable in Render.")
+        client = Groq(api_key=api_key)
         
         # Make API call with better parameters
         response = client.chat.completions.create(
